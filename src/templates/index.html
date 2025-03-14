@@ -4,70 +4,103 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Water Usage Optimizer</title>
-    
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Additional styling for smooth hover and focus effects */
+        .input-field:focus {
+            border-color: #38b2ac;
+            box-shadow: 0 0 0 3px rgba(56, 178, 172, 0.3);
+        }
+
+        .submit-btn {
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #38b2ac;
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:active {
+            transform: translateY(1px);
+        }
+    </style>
 </head>
 <body class="bg-gray-100">
-   <!-- Hero Section -->
-   <div class="text-white min-h-screen flex items-center justify-center" 
-   style="background-image: url('https://media.istockphoto.com/id/637573218/photo/green-seedling-growing-on-the-ground-in-the-rain.jpg?s=612x612&w=0&k=20&c=4gSycT8v8WvzdKJ2lKv9grYLtd3NHMizmEr-98SGUCw='); background-size: cover; background-position: center;">
-    <div class="bg-black bg-opacity-50 p-8 rounded-lg">
-        <h1 class="text-5xl font-bold mb-4">Water Usage Optimizer</h1>
-        <p class="text-xl">Optimize water usage for your crops with our intelligent prediction system.</p>
-   
+
+<!-- Hero Section -->
+<div class="text-white h-96 flex items-center justify-center bg-cover bg-center relative"
+    style="background-image: url('https://media.istockphoto.com/id/637573218/photo/green-seedling-growing-on-the-ground-in-the-rain.jpg?s=612x612&w=0&k=20&c=4gSycT8v8WvzdKJ2lKv9grYLtd3NHMizmEr-98SGUCw=');">
+    <!-- Gradient Overlay -->
+    <div class="absolute inset-0 bg-black opacity-40"></div>
+
+    <!-- Content -->
+    <div class="relative z-10 text-center px-4 sm:px-8">
+        <h1 class="text-5xl sm:text-6xl font-extrabold mb-4 text-shadow-md">
+            Water Usage Optimizer
+        </h1>
+        <p class="text-xl sm:text-2xl font-light mb-6 text-shadow-md">
+            Optimize water usage for your crops with our intelligent prediction system.
+        </p>
     </div>
 </div>
 
-   
+
+
+   <!-- Form Section -->
     <div class="container mx-auto p-8">
-        <form method="POST" class="bg-white p-8 rounded-lg shadow-md">
+        <form method="POST" class="bg-white p-8 rounded-2xl shadow-lg transform transition duration-300 ease-in-out hover:scale-105">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
-              
+                <!-- Min Temp Field -->
                 <div>
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="min_temp">
+                    <label class="block text-gray-700 text-sm font-semibold mb-2" for="min_temp">
                         Min Temp (°C)
                     </label>
-                    <input type="text" name="min_temp" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <input type="number" id="min_temp" name="min_temp" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 input-field"
+                    required min="-50" max="50" placeholder="e.g., 15">
+                    <span class="text-sm text-red-500 hidden" id="min_temp_error">Please enter a valid number between -50 and 50.</span>
                 </div>
 
-                
+                <!-- Max Temp Field -->
                 <div>
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="max_temp">
+                    <label class="block text-gray-700 text-sm font-semibold mb-2" for="max_temp">
                         Max Temp (°C)
                     </label>
-                    <input type="text" name="max_temp" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <input type="number" id="max_temp" name="max_temp" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 input-field"
+                    required min="-50" max="50" placeholder="e.g., 35">
+                    <span class="text-sm text-red-500 hidden" id="max_temp_error">Please enter a valid number between -50 and 50.</span>
                 </div>
 
-               
+                <!-- Soil Type -->
                 <div>
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="soil_type">
+                    <label class="block text-gray-700 text-sm font-semibold mb-2" for="soil_type">
                         Soil Type
                     </label>
-                    <select name="soil_type" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <select id="soil_type" name="soil_type" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" required>
                         <option value="DRY">DRY</option>
                         <option value="WET">WET</option>
                         <option value="HUMID">HUMID</option>
                     </select>
                 </div>
 
-                
+                <!-- Crop Type -->
                 <div>
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="crop_type">
+                    <label class="block text-gray-700 text-sm font-semibold mb-2" for="crop_type">
                         Crop Type
                     </label>
-                    <select name="crop_type" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <select id="crop_type" name="crop_type" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" required>
                         {% for crop in crop_types %}
                             <option value="{{ crop }}">{{ crop }}</option>
                         {% endfor %}
                     </select>
                 </div>
 
-                
+                <!-- Weather Condition -->
                 <div>
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="weather_condition">
+                    <label class="block text-gray-700 text-sm font-semibold mb-2" for="weather_condition">
                         Weather
                     </label>
-                    <select name="weather_condition" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <select id="weather_condition" name="weather_condition" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" required>
                         <option value="RAINY">RAINY</option>
                         <option value="SUNNY">SUNNY</option>
                         <option value="WINDY">WINDY</option>
@@ -75,12 +108,12 @@
                     </select>
                 </div>
 
-               
+                <!-- Region -->
                 <div>
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="region">
+                    <label class="block text-gray-700 text-sm font-semibold mb-2" for="region">
                         Region
                     </label>
-                    <select name="region" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <select id="region" name="region" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" required>
                         <option value="DESERT">DESERT</option>
                         <option value="HUMID">HUMID</option>
                         <option value="TEMPERATE">TEMPERATE</option>
@@ -90,21 +123,49 @@
                 </div>
             </div>
 
-            
+            <!-- Submit Button -->
             <div class="mt-6 text-center">
-                <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <button type="submit" class="submit-btn bg-green-500 text-white px-6 py-3 rounded-full hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500">
                     Predict Water Usage
                 </button>
             </div>
         </form>
 
-       
         {% if prediction %}
         <div class="mt-8 bg-white p-6 rounded-lg shadow-md text-center">
-            <h2 class="text-2xl font-bold text-blue-600">Prediction Result</h2>
+            <h2 class="text-2xl font-bold text-green-600">Prediction Result</h2>
             <p class="text-gray-700 mt-2">{{ prediction }}</p>
         </div>
         {% endif %}
     </div>
+
+    <script>
+        // Example JavaScript for handling form validation
+        document.querySelector('form').addEventListener('submit', function(event) {
+            let isValid = true;
+
+            // Min temp validation
+            const minTemp = document.getElementById('min_temp');
+            if (minTemp.value < -50 || minTemp.value > 50) {
+                document.getElementById('min_temp_error').classList.remove('hidden');
+                isValid = false;
+            } else {
+                document.getElementById('min_temp_error').classList.add('hidden');
+            }
+
+            // Max temp validation
+            const maxTemp = document.getElementById('max_temp');
+            if (maxTemp.value < -50 || maxTemp.value > 50) {
+                document.getElementById('max_temp_error').classList.remove('hidden');
+                isValid = false;
+            } else {
+                document.getElementById('max_temp_error').classList.add('hidden');
+            }
+
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+    </script>
 </body>
 </html>
