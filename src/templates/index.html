@@ -9,7 +9,7 @@
 </head>
 <body class="bg-gray-100">
    <!-- Hero Section -->
-   <div class="text-white min-h-screen flex items-center justify-center" 
+   <div class="text-white h-96 flex items-center justify-center"
    style="background-image: url('https://media.istockphoto.com/id/637573218/photo/green-seedling-growing-on-the-ground-in-the-rain.jpg?s=612x612&w=0&k=20&c=4gSycT8v8WvzdKJ2lKv9grYLtd3NHMizmEr-98SGUCw='); background-size: cover; background-position: center;">
     <div class="bg-black bg-opacity-50 p-8 rounded-lg">
         <h1 class="text-5xl font-bold mb-4">Water Usage Optimizer</h1>
@@ -18,56 +18,56 @@
     </div>
 </div>
 
-   
+   <!--Form section -->
     <div class="container mx-auto p-8">
         <form method="POST" class="bg-white p-8 rounded-lg shadow-md">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
-              
+                <!-- Min Temp Field -->
                 <div>
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="min_temp">
                         Min Temp (°C)
                     </label>
-                    <input type="text" name="min_temp" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <input type="number" id="min_temp" name="min_temp" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 " required min="-50" max="50">
                 </div>
 
-                
+                <!-- Max Temp Field -->
                 <div>
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="max_temp">
                         Max Temp (°C)
                     </label>
-                    <input type="text" name="max_temp" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <input type="number" id="max_temp" name="max_temp" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required min="-50" max="50">
                 </div>
 
-               
+                <!-- Soil Type -->
                 <div>
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="soil_type">
                         Soil Type
                     </label>
-                    <select name="soil_type" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <select id="soil_type" name="soil_type" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                         <option value="DRY">DRY</option>
                         <option value="WET">WET</option>
                         <option value="HUMID">HUMID</option>
                     </select>
                 </div>
 
-                
+                <!-- Crop Type -->
                 <div>
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="crop_type">
                         Crop Type
                     </label>
-                    <select name="crop_type" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <select id="crop_type" name="crop_type" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                         {% for crop in crop_types %}
                             <option value="{{ crop }}">{{ crop }}</option>
                         {% endfor %}
                     </select>
                 </div>
 
-                
+                <!-- Weather Condition -->
                 <div>
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="weather_condition">
                         Weather
                     </label>
-                    <select name="weather_condition" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <select id="weather_condition" name="weather_condition" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                         <option value="RAINY">RAINY</option>
                         <option value="SUNNY">SUNNY</option>
                         <option value="WINDY">WINDY</option>
@@ -75,12 +75,12 @@
                     </select>
                 </div>
 
-               
+                <!-- Region -->
                 <div>
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="region">
                         Region
                     </label>
-                    <select name="region" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <select id="region" name="region" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                         <option value="DESERT">DESERT</option>
                         <option value="HUMID">HUMID</option>
                         <option value="TEMPERATE">TEMPERATE</option>
@@ -90,7 +90,7 @@
                 </div>
             </div>
 
-            
+            <!-- Submit Button -->
             <div class="mt-6 text-center">
                 <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
                     Predict Water Usage
